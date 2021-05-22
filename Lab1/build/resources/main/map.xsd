@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="map" type="map">
+    </xs:element>
+
+    <xs:complexType name="map">
+        <xs:sequence>
+            <xs:element name="genre" maxOccurs="unbounded" type="genre"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="genre">
+        <xs:sequence>
+            <xs:element name="movie" maxOccurs="unbounded" type="movie"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+        <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="movie">
+        <xs:attribute name="id" type="xs:integer" use="required"/>
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="director" type="xs:string"/>
+        <xs:attribute name="producer" type="xs:string"/>
+        <xs:attribute name="screenwriter" type="xs:string"/>
+        <xs:attribute name="company" type="xs:string"/>
+        <xs:attribute name="duration" type="xs:integer"/>
+        <xs:attribute name="country" type="xs:string"/>
+        <xs:attribute name="year" type="xs:integer"/>
+    </xs:complexType>
+</xs:schema>
