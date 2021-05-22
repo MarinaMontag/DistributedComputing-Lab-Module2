@@ -1,6 +1,8 @@
 import javafx.util.Pair;
 import model.Genre;
 import model.Movie;
+import services.MovieShop;
+import services.MovieShopImpl;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,16 +14,18 @@ public class ClientManager {
     private static Scanner scanner;
     private static ObjectOutputStream objectOutputStream;
     private static ObjectInputStream objectInputStream;
+    private static MovieShop service;
     private static final int COMMAND_TO_DISPLAY_SHOP = 0;
     public static void main(String[] args) {
         try {
-           connection();
+           connection(new MovieShopImpl());
             int command=-1;
            while(!socket.isClosed()){
                objectOutputStream.writeInt(COMMAND_TO_DISPLAY_SHOP);
                objectOutputStream.flush();
-               Pair<ArrayList<Genre>, ArrayList<Movie>>pair=(Pair<ArrayList<Genre>, ArrayList<Movie>>)objectInputStream.readObject();
-               System.out.println(pair);
+               Pair<ArrayList<Genre>, ArrayList<Movie>>pair=
+                       (Pair<ArrayList<Genre>, ArrayList<Movie>>)objectInputStream.readObject();
+               service.displayShop(pair);
                menu();
                command = scanner.nextInt();
                scanner.nextLine();
@@ -40,14 +44,14 @@ public class ClientManager {
             System.out.println(e.getMessage());
         }
     }
-    private static void connection() throws IOException {
+    private static void connection(MovieShop service) throws IOException {
         System.out.println("Connecting to server...");
         socket = new Socket("localhost",3345);
         System.out.println("Connected");
         scanner = new Scanner(System.in);
         objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
         objectInputStream=new ObjectInputStream(socket.getInputStream());
-
+        ClientManager.service=service;
     }
     private static void menu(){
         System.out.println("Choose operation: ");
