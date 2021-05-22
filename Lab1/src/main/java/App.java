@@ -71,7 +71,7 @@ public class App {
                 return true;
             case 6:
                 System.out.print("Enter movie id: ");
-                shop.updateCity(scanner.nextInt());
+                shop.updateMovie(scanner.nextInt());
                 scanner.nextLine();
                 return true;
             case 7:

@@ -176,7 +176,7 @@ public final class MovieShop{
         genre.setName(scanner.nextLine());
     }
 
-    public void updateCity(int code) throws MovieException {
+    public void updateMovie(int code) throws MovieException {
         if(movies==null){
             movies=new ArrayList<>();
             throw new MovieException("No movies exists yet");
