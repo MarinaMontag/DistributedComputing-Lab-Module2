@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Genre implements Serializable {
-    private int code; // Уникальный код страны
-    private String name; // Название страны
+    private static final long serialVersionUID = 21L;
+    private int code;
+    private String name;
 
     public Genre(){};
 

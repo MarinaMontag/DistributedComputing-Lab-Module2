@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Movie implements Serializable {
+    private static final long serialVersionUID = 20L;
     private int code;
     private String name;
     private String director;
