@@ -1,21 +1,26 @@
 package services;
 
-import javafx.util.Pair;
 import model.Genre;
 import model.Movie;
 
 import java.util.ArrayList;
-
 public interface MovieShop {
-    Pair<ArrayList<Genre>, ArrayList<Movie>> getShop();
-    void insertMovie(Movie movie);
-//    void insertGenre() throws GenreException;
-//    void updateMovie(int id) throws MovieException;
-//    void updateGenre(int id) throws GenreException;
-//    void deleteMovie(int id) throws MovieException;
-//    void deleteGenre(int id) throws GenreException;
+    ArrayList<Movie> getShop();
+    String insertMovie(Movie movie);
+    String insertGenre(Genre genre);
+    String updateMovieTitle(int id, String name);
+    String updateMovieDirector(int id, String director);
+    String updateMovieProducer(int id, String producer);
+    String updateMovieScreenwriter(int id, String screenwriter);
+    String updateMovieCompany(int id, String company);
+    String updateMovieDuration(int id, int duration);
+    String updateMovieCountry(int id, String country);
+    String updateMovieYear(int id, int year);
+    String deleteMovie(int id);
+    String deleteGenre(int id);
+    int getAmountOfFilmsByGenreId(int id);
 //    Genre getGenre(int id) throws GenreException;
-//    Movie getMovie(int id) throws MovieException;
-//    ArrayList<Genre>getAllGenres();
-//    ArrayList<Movie>getMoviesByGenreId(int id) throws MovieException;
+    Movie getMovie(String name);
+    ArrayList<Genre>getAllGenres();
+    ArrayList<Movie>getMoviesByGenreId(int id);
 }

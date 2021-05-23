@@ -20,8 +20,7 @@ public class Genre implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Genre)) return false;
         Genre genre = (Genre) o;
-        return code == genre.code &&
-                name.equals(genre.name);
+        return code == genre.code;
     }
 
     @Override

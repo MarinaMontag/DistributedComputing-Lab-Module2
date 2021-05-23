@@ -38,6 +38,7 @@ public class GenreDAO {
             }
         } catch (SQLException | ClassNotFoundException throwables) {
             System.out.println(throwables.getMessage());
+            return null;
         }
         return genres;
     }
@@ -85,4 +86,5 @@ public class GenreDAO {
         }
         throw new GenreException("Genre with such id was not found");
     }
+
 }

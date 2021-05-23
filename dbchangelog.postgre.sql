@@ -21,3 +21,15 @@ create table movies(
 
 --changeset marina:2
 alter table genres add unique (name);
+
+--changeset marina:3
+insert into movies values (default, 'Mortal Engines', 'Christian Rivers', 'Amanda Walker', 
+'Fran Walsh', 'MRC', 128, 'USA, New Zealand', 2018, 7);
+insert into movies values (default, 'Old Guard', 'Gina Prince-Bythewood', 'Dana Goldberg', 
+'Greg Rucka', 'Marc Evans Productions', 125, 'USA', 2020, 2);
+insert into movies values (default, 'Hannibal', 'Ridley Scott', 'Ridley Scott', 
+'David Mamet', 'Universal Pictures', 132, 'USA', 2001, 8);
+insert into movies values (default, 'The Lord of the Rings:The Fellowship of the Ring', 
+'Peter Jackson', 'Peter Jackson', 'Peter Jackson', 'New Line Cinema', 178, 'USA, New Zealand', 2001, 2);
+insert into movies values (default, 'Underwater', 'William Eubank', 'Tonia Davis', 
+'Brian Duffield', '20th Century Fox', 95, 'USA', 2020, 8);

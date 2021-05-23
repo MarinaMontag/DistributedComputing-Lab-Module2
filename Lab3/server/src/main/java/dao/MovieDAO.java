@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class MovieDAO {
     private static final String insertQuery = "insert into movies values (default, ?, ?, ?, ?, ?, ? ,? ,?, ?)";
-    private static final String selectQuery = "select * from movies";
+    private static final String selectQuery = "select * from movies m inner join genres g on m.genre_id=g.id";
     private static final String deleteQuery = "delete from movies where id = ?";
     private static final String deleteByGenreIdQuery = "delete from movies where genre_id = ?";
     private static final String updateNameQuery = "update movies set name = ? where id = ?";
@@ -29,7 +29,7 @@ public class MovieDAO {
     private static final String selectMovieByNameQuery = "select * from movies where name = ?";
     private static final String selectCountOfMoviesByGenreId="select count(*) from movies where genre_id = ?";
 
-    public static void insert(Movie movie){
+    public static void insert(Movie movie) throws MovieException {
         try(Connection connection = JdbcConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(insertQuery);
             ps.setString(1, movie.getName());
@@ -44,7 +44,7 @@ public class MovieDAO {
             int rows=ps.executeUpdate();
             if(rows==0)
                 throw new MovieException("Movie insertion failed");
-        } catch (SQLException | ClassNotFoundException | MovieException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             System.out.println(throwables.getMessage());
         }
     }
@@ -55,8 +55,7 @@ public class MovieDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 Movie movie = getMovie(rs);
-                Genre genre = new Genre();
-                genre.setCode(rs.getInt(10));
+                Genre genre = new Genre(rs.getInt(11), rs.getString(12));
                 movie.setGenre(genre);
                 movies.add(movie);
             }
@@ -91,13 +90,11 @@ public class MovieDAO {
             System.out.println(throwables.getMessage());
         }
     }
-    public static void deleteByGenreId(int id) throws MovieException {
+    public static void deleteByGenreId(int id){
         try(Connection connection = JdbcConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(deleteByGenreIdQuery);
             ps.setInt(1, id);
             int rows=ps.executeUpdate();
-            if(rows==0)
-                throw new MovieException("Movies with such genre id were not found");
         } catch (SQLException | ClassNotFoundException throwables) {
             System.out.println(throwables.getMessage());
         }
@@ -200,7 +197,7 @@ public class MovieDAO {
         }
     }
 
-    public static ArrayList<Movie> getMoviesByGenreId(int id) throws MovieException {
+    public static ArrayList<Movie> getMoviesByGenreId(int id){
         ArrayList<Movie> movies=new ArrayList<>();
         try(Connection connection = JdbcConnection.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(selectMoviesByGenreIdQuery);
@@ -212,9 +209,8 @@ public class MovieDAO {
             }
         } catch (SQLException | ClassNotFoundException throwables) {
             System.out.println(throwables.getMessage());
+            return null;
         }
-        if(movies.size()==0)
-            throw new MovieException("No movies with such genre id");
         return movies;
     }
 
